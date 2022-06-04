@@ -17,22 +17,22 @@ public class CurrencyTest {
 
     @Test
     void testEquality() {
-        assertTrue(Money.dollar(5).equals(Money.dollar(5)));
-        assertFalse(Money.dollar(5).equals(Money.dollar(10)));
+        assertEquals(Money.dollar(5), Money.dollar(5));
+        assertNotEquals(Money.dollar(5), Money.dollar(10));
 
-        assertTrue(new Franc(5).equals(new Franc(5)));
-        assertFalse(new Franc(5).equals(new Franc(10)));
+        assertEquals(Money.franc(5), Money.franc(5));
+        assertNotEquals(Money.franc(5), Money.franc(10));
 
-        assertFalse(new Franc(5).equals(new Dollar(5)));
+        assertNotEquals(Money.franc(5), Money.dollar(5));
     }
 
     @Test
     void testFrancMultiplication() {
         // given
-        Franc five = new Franc(5);
+        Franc five = Money.franc(5);
 
         // then
-        assertEquals(new Franc(10), five.times(2));
-        assertEquals(new Franc(15), five.times(3));
+        assertEquals(Money.franc(10), five.times(2));
+        assertEquals(Money.franc(15), five.times(3));
     }
 }
