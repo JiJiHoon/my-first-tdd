@@ -1,6 +1,6 @@
 package study;
 
-public abstract class Money {
+public class Money {
     protected int amount;
     protected String currency;
 
@@ -17,7 +17,9 @@ public abstract class Money {
         return new Franc(amount, "CHF");
     }
 
-    abstract Money times(int multiplier);
+    Money times(int multiplier) {
+        return new Money(amount * multiplier, currency);
+    }
 
     String currency() {
         return currency;
@@ -28,6 +30,6 @@ public abstract class Money {
         Money money = (Money) obj;
 
         return amount == money.amount
-                && this.getClass().equals(obj.getClass());
+                && this.currency.equals(money.currency);
     }
 }
