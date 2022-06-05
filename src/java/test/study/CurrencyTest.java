@@ -104,4 +104,21 @@ public class CurrencyTest {
         // then
         assertEquals(Money.dollar(10), usd);
     }
+
+    @Test
+    void testSumPlusMoney() {
+        // given
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+
+        // when
+        Expression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+        Money result = bank.reduce(sum, "USD");
+
+        // then
+        assertEquals(Money.dollar(15), result);
+    }
 }

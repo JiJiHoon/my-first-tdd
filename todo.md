@@ -20,5 +20,5 @@
 - [x] Bank.reduce(Money)
 - [x] Money에 대한 통화 변환을 수행하는 Reduce
 - [x] Reduce(Bank, String)
-- [ ] Sum.plus
+- [x] Sum.plus
 - [ ] Expression.times
