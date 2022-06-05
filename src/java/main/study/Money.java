@@ -32,4 +32,8 @@ public class Money {
         return amount == money.amount
                 && this.currency.equals(money.currency);
     }
+
+    public Expression plus(Money five) {
+        return null;
+    }
 }
