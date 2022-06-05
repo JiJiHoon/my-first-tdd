@@ -1,6 +1,6 @@
 package study;
 
-public class Money {
+public class Money implements Expression {
     protected int amount;
     protected String currency;
 
@@ -19,6 +19,10 @@ public class Money {
 
     Money times(int multiplier) {
         return new Money(amount * multiplier, currency);
+    }
+
+    public Money reduce(String to) {
+        return this;
     }
 
     String currency() {
