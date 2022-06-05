@@ -46,4 +46,16 @@ public class CurrencyTest {
         assertEquals(five, sum.addend);
     }
 
+    @Test
+    void testReduceSum() {
+        // given
+        Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
+        Bank bank = new Bank();
+
+        // when
+        Money result = bank.reduce(sum, "USD");
+
+        // then
+        assertEquals(Money.dollar(7), result);
+    }
 }
