@@ -88,4 +88,20 @@ public class CurrencyTest {
     void testIdentityRate() {
         assertEquals(1, new Bank().rate("USD", "USD"));
     }
+
+    @Test
+    void testMixedAddition() {
+        // given
+        Expression dollar = Money.dollar(5);
+        Expression franc = Money.franc(10);
+
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+
+        // when
+        Money usd = bank.reduce(dollar.plus(franc), "USD");
+
+        // then
+        assertEquals(Money.dollar(10), usd);
+    }
 }
