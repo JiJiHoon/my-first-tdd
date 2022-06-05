@@ -33,7 +33,7 @@ public class Money {
                 && this.currency.equals(money.currency);
     }
 
-    public Expression plus(Money five) {
-        return null;
+    public Expression plus(Money addend) {
+        return new Sum(this, addend);
     }
 }
