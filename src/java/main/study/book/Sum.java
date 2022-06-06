@@ -1,4 +1,4 @@
-package study;
+package study.book;
 
 public class Sum implements Expression {
     Expression augend;

@@ -1,4 +1,4 @@
-package study;
+package study.book;
 
 public class Pair {
     private String from;

@@ -1,4 +1,4 @@
-package study;
+package study.book;
 
 public interface Expression {
     Money reduce(Bank bank, String to);

@@ -1,4 +1,4 @@
-package study;
+package study.book;
 
 public class Money implements Expression {
     protected int amount;
