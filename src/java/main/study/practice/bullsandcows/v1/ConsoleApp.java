@@ -1,4 +1,4 @@
-package study.practice.bullsandcows;
+package study.practice.bullsandcows.v1;
 
 import java.util.Scanner;
 

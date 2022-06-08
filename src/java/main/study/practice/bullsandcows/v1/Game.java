@@ -1,4 +1,4 @@
-package study.practice.bullsandcows;
+package study.practice.bullsandcows.v1;
 
 public class Game {
     private static final String NEW_LINE = System.lineSeparator();

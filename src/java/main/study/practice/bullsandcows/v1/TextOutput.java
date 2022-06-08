@@ -1,4 +1,4 @@
-package study.practice.bullsandcows;
+package study.practice.bullsandcows.v1;
 
 public class TextOutput {
     private final StringBuilder sb;

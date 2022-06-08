@@ -1,4 +1,4 @@
-package study.practice.bullsandcows;
+package study.practice.bullsandcows.v1;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

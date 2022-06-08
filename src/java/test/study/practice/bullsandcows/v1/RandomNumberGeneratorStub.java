@@ -1,4 +1,6 @@
-package study.practice.bullsandcows;
+package study.practice.bullsandcows.v1;
+
+import study.practice.bullsandcows.v1.RandomNumberGenerator;
 
 public class RandomNumberGeneratorStub implements RandomNumberGenerator {
     private int[] result;
