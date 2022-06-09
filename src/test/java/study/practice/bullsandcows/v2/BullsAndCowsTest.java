@@ -10,12 +10,40 @@ public class BullsAndCowsTest {
     @Test
     void startMessage() {
         // given
-        BullsAndCows bullsAndCows = new BullsAndCows();
+        BullsAndCows sut = new BullsAndCows();
 
         // when
-        String actual = bullsAndCows.getMessage();
+        String actual = sut.getMessage();
 
         // then
         assertThat(actual).isEqualTo("1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ");
     }
+
+    @Test
+    void selectSinglePlayerMode() {
+        // given
+        BullsAndCows sut = new BullsAndCows();
+
+        // when
+        sut.selectMenu("1");
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).isEqualTo("Game start! Guess the number!" + NEW_LINE);
+    }
+
+    @Test
+    void selectQuit() {
+        // given
+        BullsAndCows sut = new BullsAndCows();
+
+        // when
+        sut.selectMenu("2");
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).isEqualTo("Quit! Bye!" + NEW_LINE);
+    }
+
+
 }
