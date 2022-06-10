@@ -10,7 +10,7 @@ public class BullsAndCowsTest {
     @Test
     void startMessage() {
         // given
-        BullsAndCows sut = new BullsAndCows();
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(new int[]{0, 0, 0}));
 
         // when
         String actual = sut.getMessage();
@@ -22,7 +22,7 @@ public class BullsAndCowsTest {
     @Test
     void selectSinglePlayerMode() {
         // given
-        BullsAndCows sut = new BullsAndCows();
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(new int[]{0, 0, 0}));
 
         // when
         sut.selectMenu("1");
@@ -35,7 +35,7 @@ public class BullsAndCowsTest {
     @Test
     void selectQuit() {
         // given
-        BullsAndCows sut = new BullsAndCows();
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(new int[]{0, 0, 0}));
 
         // when
         sut.selectMenu("2");
@@ -44,6 +44,4 @@ public class BullsAndCowsTest {
         // then
         assertThat(actual).isEqualTo("Quit! Bye!" + NEW_LINE);
     }
-
-
 }
