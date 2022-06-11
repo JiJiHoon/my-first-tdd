@@ -1,6 +1,10 @@
 package study.practice.bullsandcows.v2;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -43,5 +47,52 @@ public class BullsAndCowsTest {
 
         // then
         assertThat(actual).isEqualTo("Quit! Bye!" + NEW_LINE);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'1 2 3', '1 2 4', 2",
+            "'1 2 3', '1 4 3', 2",
+            "'1 2 3', '1 3 2', 1",
+            "'1 2 3', '4 4 3', 1",
+    })
+    void strikes(String answerString, String guess, int expected) {
+        // given
+        int[] answer = Arrays.stream(answerString.split(" "))
+                .mapToInt(Integer::parseInt).toArray();
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.selectMenu("1");
+        sut.getMessage();
+
+        // when
+        sut.guessNumbers(guess);
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).contains(expected + " strike" + (expected == 1 ? "" : "s"));
+        assertThat(actual).contains("Try again!");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'1 2 3', '1 2 3'",
+            "'0 0 0', '0 0 0'",
+    })
+    void threeStrikes(String answerString, String guess) {
+        // given
+        int[] answer = Arrays.stream(answerString.split(" "))
+                .mapToInt(Integer::parseInt).toArray();
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.selectMenu("1");
+        sut.getMessage();
+
+        // when
+        sut.guessNumbers(guess);
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).contains("3 strikes! You win!");
     }
 }

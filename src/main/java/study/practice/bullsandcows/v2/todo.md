@@ -15,3 +15,7 @@
 - [x] 싱글 플레이 선택
 - [x] 종료 선택
 - [ ] 숫자 입력
+- [x] strikes
+- [ ] balls 
+- [ ] balls and strikes
+- [ ] out
