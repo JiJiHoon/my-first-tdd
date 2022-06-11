@@ -17,6 +17,6 @@
 - [x] 종료 선택
 - [ ] 숫자 입력
 - [x] strikes
-- [ ] balls 
+- [x] balls 
 - [ ] balls and strikes
 - [ ] out

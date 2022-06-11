@@ -35,19 +35,31 @@ public class BullsAndCows {
         int[] numbers = Arrays.stream(input.split(" ")).mapToInt(Integer::parseInt).toArray();
 
         int strikeCount = 0;
+        int ballCount = 0;
 
         for (int i = 0; i < answer.length; i++) {
-            if (answer[i] == numbers[i]) {
+            if (numbers[i] == answer[i]) {
                 ++strikeCount;
+                continue;
+            }
+            for (int j = 0; j < answer.length; j++) {
+                if (i != j && numbers[i] == answer[j]) {
+                    ++ballCount;
+                }
             }
         }
 
-        message += strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
+        if (strikeCount > 0) {
+            message += strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
+        }
+        if (ballCount > 0) {
+            message += " " + ballCount + " ball" + (ballCount > 1 ? "s" : "") + "!";
+        }
 
         if (strikeCount == 3) {
             message += " You win!" + NEW_LINE;
         } else {
-            message += "Try again!" + NEW_LINE;
+            message += " Try again!" + NEW_LINE;
         }
     }
 }

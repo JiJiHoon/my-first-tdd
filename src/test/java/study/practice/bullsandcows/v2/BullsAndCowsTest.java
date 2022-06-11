@@ -95,4 +95,50 @@ public class BullsAndCowsTest {
         // then
         assertThat(actual).contains("3 strikes! You win!");
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'1 2 3', '3 1 2', 3",
+            "'1 2 3', '2 1 4', 2",
+            "'1 2 3', '1 3 2', 2",
+            "'1 2 3', '0 0 1', 1",
+    })
+    void balls(String answerString, String guess, int expected) {
+        // given
+        int[] answer = Arrays.stream(answerString.split(" "))
+                .mapToInt(Integer::parseInt).toArray();
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.selectMenu("1");
+        sut.getMessage();
+
+        // when
+        sut.guessNumbers(guess);
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).contains(expected + " ball" + (expected == 1 ? "" : "s"));
+        assertThat(actual).contains("Try again!");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'1 2 3', '4 5 6'"
+    })
+    void noBalls(String answerString, String guess) {
+        // given
+        int[] answer = Arrays.stream(answerString.split(" "))
+                .mapToInt(Integer::parseInt).toArray();
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.selectMenu("1");
+        sut.getMessage();
+
+        // when
+        sut.guessNumbers(guess);
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).doesNotContain("ball");
+    }
 }
