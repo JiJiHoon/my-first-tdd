@@ -77,7 +77,7 @@ public class BullsAndCowsTest {
     @ParameterizedTest
     @CsvSource({
             "'1 2 3', '1 2 3'",
-            "'0 0 0', '0 0 0'",
+            "'4 5 6', '4 5 6'",
     })
     void threeStrikes(String answerString, String guess) {
         // given

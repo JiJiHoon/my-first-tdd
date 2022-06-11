@@ -1,6 +1,8 @@
 package study.practice.bullsandcows.v2;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class RandomIntegerGeneratorImpl implements RandomIntegerGenerator {
     private final Random random;
@@ -11,12 +13,12 @@ public class RandomIntegerGeneratorImpl implements RandomIntegerGenerator {
 
     @Override
     public int[] getRandomArray() {
-        int[] result = new int[3];
+        Set<Integer> result = new HashSet<>();
 
-        for (int i = 0; i < 3; i++) {
-            result[i] = random.nextInt(10);
+        while (result.size() < 3) {
+            result.add(random.nextInt(10));
         }
 
-        return result;
+        return result.stream().mapToInt(Integer::intValue).toArray();
     }
 }
