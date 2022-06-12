@@ -164,4 +164,42 @@ public class BullsAndCowsTest {
         assertThat(actual).contains(expectedStrikeCount + " strike");
         assertThat(actual).contains(expectedBallCount + " ball");
     }
+
+    @Test
+    void out() {
+        // given
+        int[] answer = new int[]{1, 2, 3};
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.selectMenu("1");
+        sut.getMessage();
+
+        // when
+        sut.guessNumbers("4 5 6");
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).contains("1 out");
+    }
+
+    @Test
+    void threeOuts() {
+        // given
+        int[] answer = new int[]{1, 2, 3};
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.selectMenu("1");
+        sut.getMessage();
+
+        // when
+        sut.guessNumbers("4 5 6");
+        String actual = sut.getMessage();
+        sut.guessNumbers("7 8 9");
+        actual = sut.getMessage();
+        sut.guessNumbers("4 6 7");
+        actual = sut.getMessage();
+
+        // then
+        assertThat(actual).contains("3 out! You lose!");
+    }
 }

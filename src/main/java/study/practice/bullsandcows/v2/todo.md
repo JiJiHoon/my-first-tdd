@@ -15,8 +15,11 @@
 - [x] 시작 메시지 출력
 - [x] 싱글 플레이 선택
 - [x] 종료 선택
-- [ ] 숫자 입력
+- [x] 숫자 입력
 - [x] strikes
 - [x] balls 
 - [x] balls and strikes
-- [ ] out
+- [x] out
+- [x] 3 out (lose)
+- [ ] win
+- [ ] 다음 게임 진행

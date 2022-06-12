@@ -10,10 +10,12 @@ public class BullsAndCows {
     private String message;
 
     private int[] answer;
+    private int outCount;
 
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
         message = "1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ";
+        outCount = 0;
     }
 
     public String getMessage() {
@@ -49,6 +51,13 @@ public class BullsAndCows {
             }
         }
 
+        if (strikeCount == 0 && ballCount == 0) {
+            ++outCount;
+            message += outCount + " out!";
+            if (outCount == 3) {
+                message += " You lose!";
+            }
+        }
         if (strikeCount > 0) {
             message += strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
         }
