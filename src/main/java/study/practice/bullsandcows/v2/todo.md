@@ -18,5 +18,5 @@
 - [ ] 숫자 입력
 - [x] strikes
 - [x] balls 
-- [ ] balls and strikes
+- [x] balls and strikes
 - [ ] out

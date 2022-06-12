@@ -141,4 +141,27 @@ public class BullsAndCowsTest {
         // then
         assertThat(actual).doesNotContain("ball");
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'1 2 3', '1 2 1', 2, 1",
+            "'1 2 3', '1 3 2', 1, 2"
+    })
+    void strikesAndBalls(String answerString, String guess, int expectedStrikeCount, int expectedBallCount) {
+        // given
+        int[] answer = Arrays.stream(answerString.split(" "))
+                .mapToInt(Integer::parseInt).toArray();
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.selectMenu("1");
+        sut.getMessage();
+
+        // when
+        sut.guessNumbers(guess);
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).contains(expectedStrikeCount + " strike");
+        assertThat(actual).contains(expectedBallCount + " ball");
+    }
 }
