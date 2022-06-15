@@ -94,6 +94,7 @@ public class BullsAndCowsTest {
 
         // then
         assertThat(actual).contains("3 strikes! You win!");
+        assertThat(actual).contains("1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ");
     }
 
     @ParameterizedTest
@@ -201,5 +202,6 @@ public class BullsAndCowsTest {
 
         // then
         assertThat(actual).contains("3 out! You lose!");
+        assertThat(actual).contains("1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ");
     }
 }

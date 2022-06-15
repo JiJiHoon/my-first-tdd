@@ -21,5 +21,6 @@
 - [x] balls and strikes
 - [x] out
 - [x] 3 out (lose)
-- [ ] win
+- [x] win
 - [ ] 다음 게임 진행
+- [ ] input 처리 통합

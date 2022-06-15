@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class BullsAndCows {
     private static final String NEW_LINE = System.lineSeparator();
-
+    private static final String MENU_MESSAGE = "1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ";
     private final RandomIntegerGenerator randomIntegerGenerator;
 
     private String message;
@@ -14,7 +14,7 @@ public class BullsAndCows {
 
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
-        message = "1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ";
+        message = MENU_MESSAGE;
         outCount = 0;
     }
 
@@ -55,7 +55,8 @@ public class BullsAndCows {
             ++outCount;
             message += outCount + " out!";
             if (outCount == 3) {
-                message += " You lose!";
+                message += " You lose!" + NEW_LINE;
+                message += MENU_MESSAGE;
             }
         }
         if (strikeCount > 0) {
@@ -67,6 +68,7 @@ public class BullsAndCows {
 
         if (strikeCount == 3) {
             message += " You win!" + NEW_LINE;
+            message += MENU_MESSAGE;
         } else {
             message += " Try again!" + NEW_LINE;
         }
