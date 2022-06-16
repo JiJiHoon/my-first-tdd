@@ -11,11 +11,13 @@ public class BullsAndCows {
 
     private int[] answer;
     private int outCount;
+    private boolean isGuessNumber;
 
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
         message = MENU_MESSAGE;
         outCount = 0;
+        isGuessNumber = false;
     }
 
     public String getMessage() {
@@ -24,53 +26,56 @@ public class BullsAndCows {
         return result;
     }
 
-    public void selectMenu(String input) {
-        if (input.equals("1")) {
-            message = "Game start! Guess the number!" + NEW_LINE;
-            answer = randomIntegerGenerator.getRandomArray();
-        } else {
-            message = "Quit! Bye!" + NEW_LINE;
-        }
-    }
+    public void processInput(String input) {
+        if (isGuessNumber) {
+            int[] numbers = Arrays.stream(input.split(" ")).mapToInt(Integer::parseInt).toArray();
 
-    public void guessNumbers(String input) {
-        int[] numbers = Arrays.stream(input.split(" ")).mapToInt(Integer::parseInt).toArray();
+            int strikeCount = 0;
+            int ballCount = 0;
 
-        int strikeCount = 0;
-        int ballCount = 0;
-
-        for (int i = 0; i < answer.length; i++) {
-            if (numbers[i] == answer[i]) {
-                ++strikeCount;
-                continue;
-            }
-            for (int j = 0; j < answer.length; j++) {
-                if (i != j && numbers[i] == answer[j]) {
-                    ++ballCount;
+            for (int i = 0; i < answer.length; i++) {
+                if (numbers[i] == answer[i]) {
+                    ++strikeCount;
+                    continue;
+                }
+                for (int j = 0; j < answer.length; j++) {
+                    if (i != j && numbers[i] == answer[j]) {
+                        ++ballCount;
+                    }
                 }
             }
-        }
 
-        if (strikeCount == 0 && ballCount == 0) {
-            ++outCount;
-            message += outCount + " out!";
-            if (outCount == 3) {
-                message += " You lose!" + NEW_LINE;
-                message += MENU_MESSAGE;
+            if (strikeCount == 0 && ballCount == 0) {
+                ++outCount;
+                message += outCount + " out!";
+                if (outCount == 3) {
+                    message += " You lose!" + NEW_LINE;
+                    message += MENU_MESSAGE;
+                    isGuessNumber = false;
+                }
             }
-        }
-        if (strikeCount > 0) {
-            message += strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
-        }
-        if (ballCount > 0) {
-            message += " " + ballCount + " ball" + (ballCount > 1 ? "s" : "") + "!";
-        }
+            if (strikeCount > 0) {
+                message += strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
+            }
+            if (ballCount > 0) {
+                message += " " + ballCount + " ball" + (ballCount > 1 ? "s" : "") + "!";
+            }
 
-        if (strikeCount == 3) {
-            message += " You win!" + NEW_LINE;
-            message += MENU_MESSAGE;
+            if (strikeCount == 3) {
+                message += " You win!" + NEW_LINE;
+                message += MENU_MESSAGE;
+                isGuessNumber = false;
+            } else {
+                message += " Try again!" + NEW_LINE;
+            }
         } else {
-            message += " Try again!" + NEW_LINE;
+            if (input.equals("1")) {
+                message = "Game start! Guess the number!" + NEW_LINE;
+                answer = randomIntegerGenerator.getRandomArray();
+                isGuessNumber = true;
+            } else {
+                message = "Quit! Bye!" + NEW_LINE;
+            }
         }
     }
 }

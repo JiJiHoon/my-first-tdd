@@ -29,7 +29,7 @@ public class BullsAndCowsTest {
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(new int[]{0, 0, 0}));
 
         // when
-        sut.selectMenu("1");
+        sut.processInput("1");
         String actual = sut.getMessage();
 
         // then
@@ -42,7 +42,7 @@ public class BullsAndCowsTest {
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(new int[]{0, 0, 0}));
 
         // when
-        sut.selectMenu("2");
+        sut.processInput("2");
         String actual = sut.getMessage();
 
         // then
@@ -62,11 +62,11 @@ public class BullsAndCowsTest {
                 .mapToInt(Integer::parseInt).toArray();
 
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
-        sut.selectMenu("1");
+        sut.processInput("1");
         sut.getMessage();
 
         // when
-        sut.guessNumbers(guess);
+        sut.processInput(guess);
         String actual = sut.getMessage();
 
         // then
@@ -85,11 +85,11 @@ public class BullsAndCowsTest {
                 .mapToInt(Integer::parseInt).toArray();
 
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
-        sut.selectMenu("1");
+        sut.processInput("1");
         sut.getMessage();
 
         // when
-        sut.guessNumbers(guess);
+        sut.processInput(guess);
         String actual = sut.getMessage();
 
         // then
@@ -110,11 +110,11 @@ public class BullsAndCowsTest {
                 .mapToInt(Integer::parseInt).toArray();
 
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
-        sut.selectMenu("1");
+        sut.processInput("1");
         sut.getMessage();
 
         // when
-        sut.guessNumbers(guess);
+        sut.processInput(guess);
         String actual = sut.getMessage();
 
         // then
@@ -132,11 +132,11 @@ public class BullsAndCowsTest {
                 .mapToInt(Integer::parseInt).toArray();
 
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
-        sut.selectMenu("1");
+        sut.processInput("1");
         sut.getMessage();
 
         // when
-        sut.guessNumbers(guess);
+        sut.processInput(guess);
         String actual = sut.getMessage();
 
         // then
@@ -154,11 +154,11 @@ public class BullsAndCowsTest {
                 .mapToInt(Integer::parseInt).toArray();
 
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
-        sut.selectMenu("1");
+        sut.processInput("1");
         sut.getMessage();
 
         // when
-        sut.guessNumbers(guess);
+        sut.processInput(guess);
         String actual = sut.getMessage();
 
         // then
@@ -172,11 +172,11 @@ public class BullsAndCowsTest {
         int[] answer = new int[]{1, 2, 3};
 
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
-        sut.selectMenu("1");
+        sut.processInput("1");
         sut.getMessage();
 
         // when
-        sut.guessNumbers("4 5 6");
+        sut.processInput("4 5 6");
         String actual = sut.getMessage();
 
         // then
@@ -189,16 +189,16 @@ public class BullsAndCowsTest {
         int[] answer = new int[]{1, 2, 3};
 
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
-        sut.selectMenu("1");
+        sut.processInput("1");
         sut.getMessage();
 
         // when
-        sut.guessNumbers("4 5 6");
+        sut.processInput("4 5 6");
+        sut.getMessage();
+        sut.processInput("7 8 9");
+        sut.getMessage();
+        sut.processInput("4 6 7");
         String actual = sut.getMessage();
-        sut.guessNumbers("7 8 9");
-        actual = sut.getMessage();
-        sut.guessNumbers("4 6 7");
-        actual = sut.getMessage();
 
         // then
         assertThat(actual).contains("3 out! You lose!");
