@@ -7,7 +7,7 @@ public class BullsAndCows {
     private static final String MENU_MESSAGE = "1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ";
     private final RandomIntegerGenerator randomIntegerGenerator;
 
-    private String message;
+    private final StringBuilder stringBuilder;
 
     private int[] answer;
     private int outCount;
@@ -15,14 +15,15 @@ public class BullsAndCows {
 
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
+        stringBuilder = new StringBuilder();
         print(MENU_MESSAGE);
         outCount = 0;
         isGuessNumber = false;
     }
 
     public String getMessage() {
-        String result = message;
-        message = "";
+        String result = stringBuilder.toString();
+        stringBuilder.setLength(0);
         return result;
     }
 
@@ -80,10 +81,11 @@ public class BullsAndCows {
     }
 
     private void print(String message) {
-        this.message += message;
+        stringBuilder.append(message);
     }
 
     private void println(String message) {
-        this.message += message + NEW_LINE;
+        print(message);
+        stringBuilder.append(NEW_LINE);
     }
 }
