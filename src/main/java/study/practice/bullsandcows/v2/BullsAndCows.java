@@ -15,7 +15,7 @@ public class BullsAndCows {
 
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
-        message = MENU_MESSAGE;
+        print(MENU_MESSAGE);
         outCount = 0;
         isGuessNumber = false;
     }
@@ -47,35 +47,43 @@ public class BullsAndCows {
 
             if (strikeCount == 0 && ballCount == 0) {
                 ++outCount;
-                message += outCount + " out!";
+                print(outCount + " out!");
                 if (outCount == 3) {
-                    message += " You lose!" + NEW_LINE;
-                    message += MENU_MESSAGE;
+                    println(" You lose!");
+                    print(MENU_MESSAGE);
                     isGuessNumber = false;
                 }
             }
             if (strikeCount > 0) {
-                message += strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
+                print(strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!");
             }
             if (ballCount > 0) {
-                message += " " + ballCount + " ball" + (ballCount > 1 ? "s" : "") + "!";
+                print(" " + ballCount + " ball" + (ballCount > 1 ? "s" : "") + "!");
             }
 
             if (strikeCount == 3) {
-                message += " You win!" + NEW_LINE;
-                message += MENU_MESSAGE;
+                println(" You win!");
+                print(MENU_MESSAGE);
                 isGuessNumber = false;
             } else {
-                message += " Try again!" + NEW_LINE;
+                println(" Try again!");
             }
         } else {
             if (input.equals("1")) {
-                message = "Game start! Guess the number!" + NEW_LINE;
+                println("Game start! Guess the number!");
                 answer = randomIntegerGenerator.getRandomArray();
                 isGuessNumber = true;
             } else {
-                message = "Quit! Bye!" + NEW_LINE;
+                println("Quit! Bye!");
             }
         }
+    }
+
+    private void print(String message) {
+        this.message += message;
+    }
+
+    private void println(String message) {
+        this.message += message + NEW_LINE;
     }
 }

@@ -29,6 +29,7 @@ public class BullsAndCowsTest {
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(new int[]{0, 0, 0}));
 
         // when
+        sut.getMessage();
         sut.processInput("1");
         String actual = sut.getMessage();
 
@@ -42,6 +43,7 @@ public class BullsAndCowsTest {
         BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(new int[]{0, 0, 0}));
 
         // when
+        sut.getMessage();
         sut.processInput("2");
         String actual = sut.getMessage();
 
