@@ -7,39 +7,33 @@ public class BullsAndCows {
     private static final String MENU_MESSAGE = "1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ";
     private static final String RETRY_MESSAGE = " Try again!";
     private final RandomIntegerGenerator randomIntegerGenerator;
-
-    private final StringBuilder stringBuilder;
-
+    private final MessageOutput messageOutput = new MessageOutput();
     private int[] answer;
     private int outCount;
     private boolean isGuessNumber;
-
     private boolean isComplete;
 
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
-        stringBuilder = new StringBuilder();
-        print(MENU_MESSAGE);
+        messageOutput.print(MENU_MESSAGE);
         outCount = 0;
         isGuessNumber = false;
         isComplete = false;
     }
 
     public String getMessage() {
-        String result = stringBuilder.toString();
-        stringBuilder.setLength(0);
-        return result;
+        return messageOutput.flushMessage();
     }
 
     public void processInput(String input) {
         if (!isGuessNumber) {
             if (input.equals("1")) {
-                println("Game start! Guess the number!");
+                messageOutput.println("Game start! Guess the number!");
                 answer = randomIntegerGenerator.getRandomArray();
                 isGuessNumber = true;
                 return;
             }
-            println("Quit! Bye!");
+            messageOutput.println("Quit! Bye!");
             isComplete = true;
             return;
         }
@@ -49,32 +43,30 @@ public class BullsAndCows {
         int strikeCount = getStrikeCount(guess);
         int ballCount = getBallCount(guess);
 
+        String strikeMessage = getStrikeMessage(strikeCount);
+        String ballMessage = getBallMessage(ballCount);
+
         if (strikeCount > 0 && ballCount > 0) {
-            print(getStrikeMessage(strikeCount));
-            print(" ");
-            print(getBallMessage(ballCount));
-            println(RETRY_MESSAGE);
+            messageOutput.println(strikeMessage + " " + ballMessage + RETRY_MESSAGE);
         } else if (strikeCount > 0) {
-            print(getStrikeMessage(strikeCount));
             if (strikeCount == 3) {
-                println(" You win!");
-                print(MENU_MESSAGE);
+                messageOutput.println(strikeMessage + " You win!");
+                messageOutput.print(MENU_MESSAGE);
                 isGuessNumber = false;
             } else {
-                println(RETRY_MESSAGE);
+                messageOutput.println(strikeMessage + RETRY_MESSAGE);
             }
         } else if (ballCount > 0) {
-            print(getBallMessage(ballCount));
-            println(RETRY_MESSAGE);
+            messageOutput.println(ballMessage + RETRY_MESSAGE);
         } else {
             ++outCount;
-            print(outCount + " out!");
+            messageOutput.print(outCount + " out!");
             if (outCount == 3) {
-                println(" You lose!");
-                print(MENU_MESSAGE);
+                messageOutput.println(" You lose!");
+                messageOutput.print(MENU_MESSAGE);
                 isGuessNumber = false;
             } else {
-                println(RETRY_MESSAGE);
+                messageOutput.println(RETRY_MESSAGE);
             }
         }
     }
@@ -122,14 +114,5 @@ public class BullsAndCows {
 
     private String getStrikeMessage(int strikeCount) {
         return strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
-    }
-
-    private void print(String message) {
-        stringBuilder.append(message);
-    }
-
-    private void println(String message) {
-        print(message);
-        stringBuilder.append(NEW_LINE);
     }
 }
