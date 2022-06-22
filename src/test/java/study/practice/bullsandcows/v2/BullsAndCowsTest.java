@@ -45,10 +45,12 @@ public class BullsAndCowsTest {
         // when
         sut.getMessage();
         sut.processInput("2");
-        String actual = sut.getMessage();
+        String actualMessage = sut.getMessage();
+        boolean actualComplete = sut.isComplete();
 
         // then
-        assertThat(actual).isEqualTo("Quit! Bye!" + NEW_LINE);
+        assertThat(actualMessage).isEqualTo("Quit! Bye!" + NEW_LINE);
+        assertThat(actualComplete).isTrue();
     }
 
     @ParameterizedTest

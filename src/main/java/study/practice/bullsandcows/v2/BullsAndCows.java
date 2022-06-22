@@ -13,12 +13,15 @@ public class BullsAndCows {
     private int outCount;
     private boolean isGuessNumber;
 
+    private boolean isComplete;
+
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
         stringBuilder = new StringBuilder();
         print(MENU_MESSAGE);
         outCount = 0;
         isGuessNumber = false;
+        isComplete = false;
     }
 
     public String getMessage() {
@@ -76,8 +79,13 @@ public class BullsAndCows {
                 isGuessNumber = true;
             } else {
                 println("Quit! Bye!");
+                isComplete = true;
             }
         }
+    }
+
+    public boolean isComplete() {
+        return isComplete;
     }
 
     private void print(String message) {
