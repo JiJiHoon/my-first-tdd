@@ -31,40 +31,30 @@ public class BullsAndCows {
     }
 
     public void processInput(String input) {
-        if (isGuessNumber) {
-            int[] numbers = Arrays.stream(input.split(" ")).mapToInt(Integer::parseInt).toArray();
-
-            int strikeCount = 0;
-            int ballCount = 0;
-
-            for (int i = 0; i < answer.length; i++) {
-                if (numbers[i] == answer[i]) {
-                    ++strikeCount;
-                    continue;
-                }
-                for (int j = 0; j < answer.length; j++) {
-                    if (i != j && numbers[i] == answer[j]) {
-                        ++ballCount;
-                    }
-                }
+        if (!isGuessNumber) {
+            if (input.equals("1")) {
+                println("Game start! Guess the number!");
+                answer = randomIntegerGenerator.getRandomArray();
+                isGuessNumber = true;
+                return;
             }
+            println("Quit! Bye!");
+            isComplete = true;
+            return;
+        }
 
-            if (strikeCount == 0 && ballCount == 0) {
-                ++outCount;
-                print(outCount + " out!");
-                if (outCount == 3) {
-                    println(" You lose!");
-                    print(MENU_MESSAGE);
-                    isGuessNumber = false;
-                }
-            }
-            if (strikeCount > 0) {
-                print(strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!");
-            }
-            if (ballCount > 0) {
-                print(" " + ballCount + " ball" + (ballCount > 1 ? "s" : "") + "!");
-            }
+        int[] guess = convertInputToGuessNumbers(input);
 
+        int strikeCount = getStrikeCount(guess);
+        int ballCount = getBallCount(guess);
+
+        if (strikeCount > 0 && ballCount > 0) {
+            print(getStrikeMessage(strikeCount));
+            print(" ");
+            print(getBallMessage(ballCount));
+            println(" Try again!");
+        } else if (strikeCount > 0) {
+            print(getStrikeMessage(strikeCount));
             if (strikeCount == 3) {
                 println(" You win!");
                 print(MENU_MESSAGE);
@@ -72,20 +62,65 @@ public class BullsAndCows {
             } else {
                 println(" Try again!");
             }
+        } else if (ballCount > 0) {
+            print(getBallMessage(ballCount));
+            println(" Try again!");
         } else {
-            if (input.equals("1")) {
-                println("Game start! Guess the number!");
-                answer = randomIntegerGenerator.getRandomArray();
-                isGuessNumber = true;
+            ++outCount;
+            print(outCount + " out!");
+            if (outCount == 3) {
+                println(" You lose!");
+                print(MENU_MESSAGE);
+                isGuessNumber = false;
             } else {
-                println("Quit! Bye!");
-                isComplete = true;
+                println(" Try again!");
             }
         }
     }
 
     public boolean isComplete() {
         return isComplete;
+    }
+
+    private int getBallCount(int[] guess) {
+        int ballCount = 0;
+
+        for (int i = 0; i < answer.length; i++) {
+            if (guess[i] == answer[i]) {
+                continue;
+            }
+            for (int j = 0; j < answer.length; j++) {
+                if (i != j && guess[i] == answer[j]) {
+                    ++ballCount;
+                }
+            }
+        }
+
+        return ballCount;
+    }
+
+    private int getStrikeCount(int[] guess) {
+        int strikeCount = 0;
+
+        for (int i = 0; i < answer.length; i++) {
+            if (guess[i] == answer[i]) {
+                ++strikeCount;
+            }
+        }
+
+        return strikeCount;
+    }
+
+    private int[] convertInputToGuessNumbers(String input) {
+        return Arrays.stream(input.split(" ")).mapToInt(Integer::parseInt).toArray();
+    }
+
+    private String getBallMessage(int ballCount) {
+        return ballCount + " ball" + (ballCount > 1 ? "s" : "") + "!";
+    }
+
+    private String getStrikeMessage(int strikeCount) {
+        return strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
     }
 
     private void print(String message) {
