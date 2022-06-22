@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class BullsAndCows {
     private static final String NEW_LINE = System.lineSeparator();
     private static final String MENU_MESSAGE = "1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ";
+    private static final String RETRY_MESSAGE = " Try again!";
     private final RandomIntegerGenerator randomIntegerGenerator;
 
     private final StringBuilder stringBuilder;
@@ -52,7 +53,7 @@ public class BullsAndCows {
             print(getStrikeMessage(strikeCount));
             print(" ");
             print(getBallMessage(ballCount));
-            println(" Try again!");
+            println(RETRY_MESSAGE);
         } else if (strikeCount > 0) {
             print(getStrikeMessage(strikeCount));
             if (strikeCount == 3) {
@@ -60,11 +61,11 @@ public class BullsAndCows {
                 print(MENU_MESSAGE);
                 isGuessNumber = false;
             } else {
-                println(" Try again!");
+                println(RETRY_MESSAGE);
             }
         } else if (ballCount > 0) {
             print(getBallMessage(ballCount));
-            println(" Try again!");
+            println(RETRY_MESSAGE);
         } else {
             ++outCount;
             print(outCount + " out!");
@@ -73,7 +74,7 @@ public class BullsAndCows {
                 print(MENU_MESSAGE);
                 isGuessNumber = false;
             } else {
-                println(" Try again!");
+                println(RETRY_MESSAGE);
             }
         }
     }
