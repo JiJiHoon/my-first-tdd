@@ -31,6 +31,7 @@ public class BullsAndCows {
                 messageOutput.println("Game start! Guess the number!");
                 answer = randomIntegerGenerator.getRandomArray();
                 isGuessNumber = true;
+                outCount = 0;
                 return;
             }
             messageOutput.println("Quit! Bye!");

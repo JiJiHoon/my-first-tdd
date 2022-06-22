@@ -208,4 +208,26 @@ public class BullsAndCowsTest {
         assertThat(actual).contains("3 out! You lose!");
         assertThat(actual).contains("1: single play mode" + NEW_LINE + "2: quit" + NEW_LINE + "Select Mode: ");
     }
+
+    @Test
+    void replayAndOut() {
+        // given
+        int[] answer = new int[]{1, 2, 3};
+
+        BullsAndCows sut = new BullsAndCows(new RandomIntegerGeneratorStub(answer));
+        sut.processInput("1");
+        sut.getMessage();
+
+        // when
+        sut.processInput("4 5 6");
+        sut.processInput("7 8 9");
+        sut.processInput("4 6 7");
+        sut.processInput("1");
+        sut.getMessage();
+        sut.processInput("4 5 6");
+        String actual = sut.getMessage();
+
+        // then
+        assertThat(actual).contains("1 out! Try again!");
+    }
 }
