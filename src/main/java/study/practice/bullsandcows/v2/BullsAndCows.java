@@ -10,15 +10,15 @@ public class BullsAndCows {
     private final MessageOutput messageOutput = new MessageOutput();
     private int[] answer;
     private int outCount;
-    private boolean isGuessNumber;
     private boolean isComplete;
+    private Processor processor;
 
     public BullsAndCows(RandomIntegerGenerator randomIntegerGenerator) {
         this.randomIntegerGenerator = randomIntegerGenerator;
         messageOutput.print(MENU_MESSAGE);
         outCount = 0;
-        isGuessNumber = false;
         isComplete = false;
+        processor = getMenuProcessor();
     }
 
     public String getMessage() {
@@ -26,54 +26,60 @@ public class BullsAndCows {
     }
 
     public void processInput(String input) {
-        if (!isGuessNumber) {
-            if (input.equals("1")) {
-                messageOutput.println("Game start! Guess the number!");
-                answer = randomIntegerGenerator.getRandomArray();
-                isGuessNumber = true;
-                outCount = 0;
-                return;
-            }
-            messageOutput.println("Quit! Bye!");
-            isComplete = true;
-            return;
-        }
-
-        int[] guess = convertInputToGuessNumbers(input);
-
-        int strikeCount = getStrikeCount(guess);
-        int ballCount = getBallCount(guess);
-
-        String strikeMessage = getStrikeMessage(strikeCount);
-        String ballMessage = getBallMessage(ballCount);
-
-        if (strikeCount > 0 && ballCount > 0) {
-            messageOutput.println(strikeMessage + " " + ballMessage + RETRY_MESSAGE);
-        } else if (strikeCount > 0) {
-            if (strikeCount == 3) {
-                messageOutput.println(strikeMessage + " You win!");
-                messageOutput.print(MENU_MESSAGE);
-                isGuessNumber = false;
-            } else {
-                messageOutput.println(strikeMessage + RETRY_MESSAGE);
-            }
-        } else if (ballCount > 0) {
-            messageOutput.println(ballMessage + RETRY_MESSAGE);
-        } else {
-            ++outCount;
-            messageOutput.print(outCount + " out!");
-            if (outCount == 3) {
-                messageOutput.println(" You lose!");
-                messageOutput.print(MENU_MESSAGE);
-                isGuessNumber = false;
-            } else {
-                messageOutput.println(RETRY_MESSAGE);
-            }
-        }
+        processor = processor.run(input);
     }
 
     public boolean isComplete() {
         return isComplete;
+    }
+
+    private Processor getMenuProcessor() {
+        return input -> {
+            if (input.equals("1")) {
+                messageOutput.println("Game start! Guess the number!");
+                answer = randomIntegerGenerator.getRandomArray();
+                outCount = 0;
+                return getGuessProcessor();
+            }
+            messageOutput.println("Quit! Bye!");
+            isComplete = true;
+            return null;
+        };
+    }
+
+    private Processor getGuessProcessor() {
+        return input -> {
+            int[] guess = convertInputToGuessNumbers(input);
+
+            int strikeCount = getStrikeCount(guess);
+            int ballCount = getBallCount(guess);
+
+            String strikeMessage = getStrikeMessage(strikeCount);
+            String ballMessage = getBallMessage(ballCount);
+
+            if (strikeCount > 0 && ballCount > 0) {
+                messageOutput.println(strikeMessage + " " + ballMessage + RETRY_MESSAGE);
+            } else if (strikeCount > 0) {
+                if (strikeCount == 3) {
+                    messageOutput.println(strikeMessage + " You win!");
+                    messageOutput.print(MENU_MESSAGE);
+                    return getMenuProcessor();
+                }
+                messageOutput.println(strikeMessage + RETRY_MESSAGE);
+            } else if (ballCount > 0) {
+                messageOutput.println(ballMessage + RETRY_MESSAGE);
+            } else {
+                ++outCount;
+                messageOutput.print(outCount + " out!");
+                if (outCount == 3) {
+                    messageOutput.println(" You lose!");
+                    messageOutput.print(MENU_MESSAGE);
+                    return getMenuProcessor();
+                }
+                messageOutput.println(RETRY_MESSAGE);
+            }
+            return getGuessProcessor();
+        };
     }
 
     private int getBallCount(int[] guess) {
@@ -115,5 +121,9 @@ public class BullsAndCows {
 
     private String getStrikeMessage(int strikeCount) {
         return strikeCount + " strike" + (strikeCount > 1 ? "s" : "") + "!";
+    }
+
+    private interface Processor {
+        Processor run(String input);
     }
 }
