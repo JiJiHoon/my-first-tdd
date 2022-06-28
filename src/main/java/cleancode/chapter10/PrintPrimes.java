@@ -5,13 +5,13 @@ public class PrintPrimes {
         final int M = 1000;
         final int RR = 50;
         final int CC = 4;
-        int P[] = new int[M + 1];
 
-        generatePrimeNumbers(M, P);
+        int[] P = generatePrimeNumbers(M);
         printResult(M, RR, CC, P);
     }
 
-    private static void generatePrimeNumbers(int M, int[] P) {
+    private static int[] generatePrimeNumbers(int M) {
+        int P[] = new int[M + 1];
         final int ORDMAX = 30;
         int MULT[] = new int[ORDMAX + 1];
         boolean JPRIME;
@@ -47,6 +47,8 @@ public class PrintPrimes {
             K = K + 1;
             P[K] = J;
         }
+
+        return P;
     }
 
     private static void printResult(int M, int RR, int CC, int[] P) {
