@@ -5,16 +5,21 @@ public class PrintPrimes {
         final int M = 1000;
         final int RR = 50;
         final int CC = 4;
-        final int ORDMAX = 30;
         int P[] = new int[M + 1];
+
+        generatePrimeNumbers(M, P);
+        printResult(M, RR, CC, P);
+    }
+
+    private static void generatePrimeNumbers(int M, int[] P) {
+        final int ORDMAX = 30;
+        int MULT[] = new int[ORDMAX + 1];
+        boolean JPRIME;
+        int N;
+        int SQUARE;
+        int ORD;
         int J;
         int K;
-        boolean JPRIME;
-        int ORD;
-        int SQUARE;
-        int N;
-        int MULT[] = new int[ORDMAX + 1];
-
         J = 1;
         K = 1;
         P[1] = 2;
@@ -42,7 +47,6 @@ public class PrintPrimes {
             K = K + 1;
             P[K] = J;
         }
-        printResult(M, RR, CC, P);
     }
 
     private static void printResult(int M, int RR, int CC, int[] P) {
